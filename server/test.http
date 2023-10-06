@@ -1,0 +1,119 @@
+## FRONT OFFICE / BACK OFFICE
+## Retrieve all published pages 
+GET http://localhost:3001/api/pages?filter=published HTTP/1.1
+###
+
+## Retrieve content (blocks) of pages given its id (1)
+GET http://localhost:3001/api/pages/1 HTTP/1.1
+###
+## Check id validation
+GET http://localhost:3001/api/pages/-1 HTTP/1.1
+###
+
+## Retrieve site title
+GET http://localhost:3001/api/title HTTP/1.1
+###
+
+## BACK OFFICE
+## Retrieve all pages 
+GET http://localhost:3001/api/pages?filter=all HTTP/1.1
+###
+## Add a new page given page object and list of blocks
+## Allowed to generic authenticated user
+POST http://localhost:3001/api/pages HTTP/1.1
+content-type: application/json
+
+{
+    "page": {
+        "title": "testNewPage",
+        "creationDate": "2023-06-20"
+    },
+    "blocks": [
+        {
+            "type": "header",
+            "content": "testNewHeader"
+        },
+        {
+            "type": "paragraph",
+            "content": "testNewParagraph"
+        }
+    ]
+}
+### 
+## Update an existing page given page object, a userId if user is admin, and blocks
+## Allowed to generic authenticated user for pages belonging to them
+## or just to admin in case page dont belongs to them
+PUT http://localhost:3001/api/pages/4 HTTP/1.1
+content-type: application/json
+
+{
+    "page": {
+        "title": "testAdminPage",
+        "creationDate": "2023-06-21"
+    },
+    "blocks": [
+        {
+            "type": "header",
+            "content": "testAdminHeader"
+        },
+        {
+            "type": "paragraph",
+            "content": "testAdminParagraph"
+        }
+    ]
+}
+###
+## Admin adapted body
+PUT http://localhost:3001/api/pages/4 HTTP/1.1
+content-type: application/json
+
+{
+    "page": {
+        "title": "testAdminPage",
+        "creationDate": "2023-06-21"
+    },
+    "blocks": [
+        {
+            "type": "header",
+            "content": "testAdminHeader"
+        },
+        {
+            "type": "paragraph",
+            "content": "testAdminParagraph"
+        }
+    ],
+    "userId": 3
+}
+###
+## Login testUser01
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "testuser01@polito.it",
+    "password": "password"
+}
+###
+## Login testUser02
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "testuser02@polito.it",
+    "password": "password"
+}
+###
+## Login adminUser0
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "testadmin0@polito.it",
+    "password": "password"
+}
+###
+## Get current session
+GET http://localhost:3001/api/sessions/current HTTP/1.1
+###
+## Logout
+DELETE http://localhost:3001/api/sessions/current HTTP/1.1
