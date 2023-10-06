@@ -1,6 +1,4 @@
 # CMSmall
-## MACALUSO CLAUDIO 
-
 ## Description
 
 Single Page Application for a small page manager.
