@@ -1,7 +1,7 @@
 # CMSmall
 ## Description
 
-Single Page Application for a small page manager.
+Single Page WebApp for a small page manager.
 
 ## React Client Application Routes
 
